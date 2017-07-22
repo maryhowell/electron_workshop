@@ -7,4 +7,16 @@ app.on('ready', () => {
   const file =  'file://' + __dirname + '/index.html'
 
   mainWindow.loadURL(file)
+
+// can also open if wanted .openDevTools
+// or on('will-navigate') < can capture URL
+  mainWindow.webContents.on('will-navigate', (e,url) => {
+    e.preventDefault()
+    console.log(url)
+
+    // const realPath = url.slice(7)
+    mainWindow.webContents.send('open-file', url.slice(7))
+  })
+
+
 })
